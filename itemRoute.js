@@ -9,8 +9,6 @@ const { items } = require("./fakeDb.js");
 
 const router = new express.Router();
 
-//or here?
-app.use(express.json());
 
 ///ROUTES 
 
@@ -28,8 +26,11 @@ router.post('/', function(req,res) {
 });
 
 router.get('/:name', function(req,res) {
+    debugger
+    const name = req.params.name
+    const singleItem = items.find(item => item.name === name)
 
-
+    return res.status(200).json(singleItem)
 });
 
 router.patch('/:name', function(req,res) {
