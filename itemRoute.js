@@ -41,15 +41,21 @@ router.patch('/:name', function (req, res) {
 
     const index = items.indexOf(singleItem);
 
-    items[index] = req.body;
-
+    for (let update in req.body) {
+        items[index][update] = req.body[update];
+    }
     return res.status(200).json(items[index]);
 
 });
 
 router.delete('/:name', function (req, res) {
 
+    const name = req.params.name;
+    let singleItem = items.find(item => item.name === name);
+    const index = items.indexOf(singleItem);
+    items.splice(index,1)
 
+    return res.status(200).json({message: "Deleted"})
 });
 
 
